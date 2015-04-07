@@ -8,3 +8,4 @@
 //CString_util
 void stringUtilTest();
 void timeUtilTest();
+void threadTest();

@@ -31,5 +31,7 @@ int main()
 	stringUtilTest();
 
 	timeUtilTest();
+
+	threadTest();
 	return 0;
 }

@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include "Exception.h"
 
 namespace blp
 {
@@ -14,8 +15,8 @@ public:
 	/**
 	 * 构造函数
 	 */
-	CShareMem(key_t key, int iSize, bool autoRemove=false);
-	CShareMem(const char* path, int id, int iSize, bool autoRemove=false);
+	CShareMem(key_t key, int iSize, bool autoRemove=false) throw (CException);
+	CShareMem(const char* path, int id, int iSize, bool autoRemove=false) throw (CException);
 	/**
 	 * 析构函数
 	 */

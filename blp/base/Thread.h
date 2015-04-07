@@ -5,16 +5,17 @@
 #include "Scoped_ptr.h"
 #include <string>
 #include <pthread.h>
+#include "Exception.h"
 
 namespace blp{
 class CThread{
-	typedef void (*ThreadFunc) ();
+	typedef void* (*ThreadFunc) (void*);
 public:
-	explicit CThread(const ThreadFunc func, const std::string& name = string());
+	explicit CThread(const ThreadFunc func, const std::string& name = "");
 	~CThread();
 
-	void start();
-	int join();
+	void start() throw (CException);
+	int join() throw (CException);
 
 	bool started() const {return _started;}
 	pid_t tid() const {return *_tid;}

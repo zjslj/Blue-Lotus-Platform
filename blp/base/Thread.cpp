@@ -7,13 +7,15 @@
 #include <sys/syscall.h>
 #include <sys/types.h>
 #include <linux/unistd.h>
+#include "Atomic.h"
 
 using namespace blp;
 
-AtomicInt32 CThread::_count ＝ 0；
+AtomicInt32 CThread::_count;
+
 CThread::CThread(const ThreadFunc func, const std::string& name)
 	:_started(false), _joined(false), _pthreadId(0), _name(name), 
-	_tid(), _func(func), 	
+	_tid(), _func(func)	
 {
 
 }
@@ -26,20 +28,28 @@ CThread::~CThread()
 	}
 }
 
-void CThread::start()
+void CThread::start() throw (CException)
 {
+	if(_started)
+	{
+		throw CException(-1, "Thread already started!", __FILE__, __LINE__);
+	}
+
 	_started = true;
-	detail::ThreadData* data = new detail::ThreadData(func_, name_, tid_);
-	if (pthread_create(&_pthreadId, NULL, &detail::startThread, data))
+	if (pthread_create(&_pthreadId, NULL, _func, NULL))
 	{
 		_started = false;
-		delete data; 
 	}
 }
 
-int CThread::join()
+int CThread::join() throw (CException)
 {
-
+	if(!_started || _joined)
+	{
+		throw CException(-1, "Thread not started or already joined!", __FILE__, __LINE__);
+	}
+	_joined = true;
+  	return pthread_join(pthreadId_, NULL);
 }
 
 void CThread::setDefaultName()

@@ -2,14 +2,13 @@
 #include "Share_mem.h"
 #include <errno.h>
 #include <string.h>
-#include "Exception.h"
 
 using namespace blp;
 
 /**
  * 构造函数
  */
-CShareMem::CShareMem(key_t key, int iSize, bool autoRemove)
+CShareMem::CShareMem(key_t key, int iSize, bool autoRemove) throw (CException)
 {
 	_bFirstCreate = true;
 	_bAutoRemove = autoRemove;
@@ -42,7 +41,7 @@ CShareMem::CShareMem(key_t key, int iSize, bool autoRemove)
 	}
 }
 
-CShareMem::CShareMem(const char* path, int id, int iSize, bool autoRemove)
+CShareMem::CShareMem(const char* path, int id, int iSize, bool autoRemove) throw (CException)
 {
 	_bFirstCreate = true;
 	_bAutoRemove = autoRemove;

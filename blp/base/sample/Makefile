@@ -14,7 +14,7 @@ LIB_BASE     = $(PATH_INC)/libblpbase.a
 CC       := g++
 CFLAGS   +=  -I$(PATH_INC)             
 CFLAGS   += -g -O -DNDEBUG -Wall -fpic 
-LIBS     += $(LIB_BASE)
+LIBS     += $(LIB_BASE) -pthread
 
 # Target to create
 EXE  := $(PATH_BIN)/main
