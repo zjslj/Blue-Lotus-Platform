@@ -49,7 +49,7 @@ int CThread::join() throw (CException)
 		throw CException(-1, "Thread not started or already joined!", __FILE__, __LINE__);
 	}
 	_joined = true;
-  	return pthread_join(pthreadId_, NULL);
+  	return pthread_join(_pthreadId, NULL);
 }
 
 void CThread::setDefaultName()
