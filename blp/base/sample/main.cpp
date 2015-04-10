@@ -1,5 +1,7 @@
 #include <iostream>
+#include <string>
 #include "inc.h"
+
 using namespace std;
 using namespace blp;
 
@@ -33,5 +35,8 @@ int main()
 	timeUtilTest();
 
 	threadTest();
+
+	string str = "123456";
+	cout << "str to int :" << lexical_cast<int>(str) << endl;
 	return 0;
 }
